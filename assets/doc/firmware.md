@@ -32,14 +32,79 @@ $$
 
 同步板将采集PWM的上升沿时刻，并记录反馈给上位机，这样上位机即可精准的获得每一个触发时刻的时间。
 
-## PPS时间戳输出功能
+## PPS+GPRMC时间戳输出功能
 
+支持标准的PPS+GPRMC时间戳输出功能
+![alt text](../picture/pps.png)
 
+PPS信号和GPRMC信号的时序输出
+| 参数 | 描述                              | 有效范围         | 使用值            |
+|------|-----------------------------------|------------------|-------------------|
+| t0   | 相邻两次秒脉冲上升沿的间隔        | 900 ms ~ 1100 ms | 1000 ms           |
+| t1   | 秒脉冲的高电平时间                | 5 ms ~ 900 ms    | 10 ms ~ 200 ms    |
+| t2   | GPRMC的传输时间（波特率：9600bps）| ≈ 70 ms          | 70 ms             |
+| t3   | GPRMC数据开始发送相对于脉冲上升沿的延迟 | 0 ms ~ 900 ms    | 0 ms ~ 430 ms     |
 
+典型的GPRMC数据格式输出为
+
+![alt text](../picture/gprmc.jpg)
 
 ## 通信协议
 
+和上位机通信采用JSON格式进行，主要分为两种主要的信息格式，即配置消息格式和数据反馈信息格式。
+
+### 配置JSON格式
+
+
+```json lines
+{"f":"cfg","port":8888,"ip":[192,168,1,188],"subnet":[255,255,255,0],"hz_cam_1":1,"hz_cam_2":2,"hz_cam_3":4,"hz_cam_4":8,"hz_imu_2":10,"xtal_diff":0,"uart_0_baud_rate":921600,"uart_1_baud_rate":9600,"uart_2_baud_rate":115200,"use_gps":true,"use_pps":true,"version":400}\n
+```
+对应指令说明：
+```json
+  "f": "cfg",                 // 配置文件类型标识符（固定为"cfg"）
+  "port": 8888,               // 网络通信端口号
+  "ip": [192,168,1,188],      // 设备IP地址
+  "subnet": [255,255,255,0],  // 子网掩码配置
+  "hz_cam_1": 20,             // 相机1触发频率（单位：Hz，建议≤100Hz）
+  "hz_cam_2": 30,             // 相机2触发频率（单位：Hz，建议≤100Hz）
+  "hz_cam_3": 40,             // 相机3触发频率（单位：Hz，建议≤100Hz）
+  "hz_cam_4": 50,             // 相机4触发频率（单位：Hz，建议≤100Hz）
+  "hz_imu_2":1                // IMU2触发频率（单位：Hz，建议≤100Hz）
+  "uart_0_baud_rate": 921600, // 通讯波特率(Typc)（高速模式，用于时间同步/传感器数据）
+  "uart_1_baud_rate": 9600,   // PPS波特率(Lidar)（低速模式，用于雷达同步）
+  "uart_2_baud_rate": 115200, // GPS波特率(GPS/RTK)（中速模式，用于GPS数据读取）
+  "use_gps": true,            // GPS模块启用标志
+  "use_pps": true,            // PPS精确时钟同步信号启用标志
+  "xtal_diff":0,              // 晶振偏差修正
+  "version": 400              // 固件版本号(V3/MINI：300，V4：400)
+```
+配置完成后串口助手打印如下信息：
+```json
+{"f":"log","t":11320243,"l":"INFO","msg":"Config file received!"}
+{"f":"log","t":11321532,"l":"INFO","msg":"Config set ok"}
+{"f":"cfg","port":8888,"ip":[192,168,1,188],"subnet":[255,255,255,0],"hz_cam_1":1,"hz_cam_2":2,"hz_cam_3":4,"hz_cam_4":8,"hz_imu_2":10,"xtal_diff":0,"uart_0_baud_rate":921600,"uart_1_baud_rate":9600,"uart_2_baud_rate":115200,"use_gps":true,"use_pps":true,"version":400}
+{"f":"log","t":11325745,"l":"INFO","msg":"Port parsed: 8888"}
+{"f":"log","t":11326439,"l":"INFO","msg":"IP array set: 192.168.1.188"}
+{"f":"log","t":11327234,"l":"INFO","msg":"Subnet array set: 255.255.255.0"}
+{"f":"log","t":11328054,"l":"INFO","msg":"Device frequencies parsed: [1, 2, 4, 8, 10]"}
+{"f":"log","t":11329034,"l":"INFO","msg":"UART baud rates parsed: [921600, 9600, 115200]"}
+{"f":"log","t":11329939,"l":"INFO","msg":"GPS and PPS flags parsed: use_gps:1, use_pps:1"}
+{"f":"log","t":11330800,"l":"INFO","msg":"Xtal diff set: 0"}
+{"f":"log","t":11331380,"l":"INFO","msg":"Version set: 400"}
+{"f":"log","t":11331935,"l":"INFO","msg":"Version parsed: 400"}
+{"f":"log","t":1003932,"l":"INFO","msg":"[USB-TYPC] Configuration complete! baudrate:921600"}
+{"f":"cfg","port":8888,"ip":[192,168,1,188],"subnet":[255,255,255,0],"hz_cam_1":1,"hz_cam_2":2,"hz_cam_3":4,"hz_cam_4":8,"hz_imu_2":10,"xtal_diff":0,"uart_0_baud_rate":921600,"uart_1_baud_rate":9600,"uart_2_baud_rate":115200,"use_gps":true,"use_pps":true,"version":400}
+```
+
+
+### 数据JSON格式
+
+
+
 ## 固件烧写流程
+
+按住BOOT按钮，不要松开，将TYPC插入到电脑上电后，松开BOOT按钮，电脑会自动识别并识别为USB存储设备。将最新的固件移动到U盘中。移动完成后系统会自动删除U盘。这时候最新的固件已经被成功加载了。
+
 
 ## 固件更新日志
 
