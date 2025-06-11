@@ -12,9 +12,9 @@ Messenger::Messenger() {
     publisher_.bind(endpoint_);
     subscriber_.connect(endpoint_);
 
-    LOG(INFO) << "Connected to ZMQ endpoint: " << endpoint_;
+    LOG(INFO) << "Link Net: " << endpoint_;
   } catch (const zmq::error_t& e) {
-    LOG(ERROR) << "ZMQ initialization error: " << e.what();
+    LOG(ERROR) << "Net initialization error: " << e.what();
     CleanUp();
   }
 }

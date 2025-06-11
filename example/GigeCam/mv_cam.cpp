@@ -90,7 +90,7 @@ bool MvCam::Initialization() {
       PrintDeviceInfo(p_device_info);
     }
   } else {
-    LOG(ERROR) << "Find No GIGE or USB Cam Devices!";
+    LOG(ERROR) << "Not find GIGE or USB Cam Devices!";
     return false;
   }
   LOG(INFO) << "Number of cameras detected : " << st_device_list.nDeviceNum;
