@@ -54,7 +54,7 @@ void NetManager::Receive() const {
   unsigned short source_port = 0;
 
   while (started_) {
-    int size = net_ptr_->recvFrom(buffer.data(), k_buffer_size, source_address, source_port);
+    const int size = net_ptr_->recvFrom(buffer.data(), k_buffer_size, source_address, source_port);
     if (size <= 0) {
       std::this_thread::sleep_for(std::chrono::milliseconds(1));
       continue;

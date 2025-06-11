@@ -17,7 +17,7 @@ void Ptp::SetUsbPtr(const std::shared_ptr<serial::Serial>& serial_ptr) {
 }
 
 void Ptp::SetNetPtr(const std::shared_ptr<UDPSocket>& net_ptr, const std::string& target_ip,
-                    unsigned short port) {
+                    const unsigned short port) {
   net_ptr_ = net_ptr;
   target_ip_ = target_ip;
   port_ = port;
@@ -56,7 +56,7 @@ void Ptp::HandleTimeSyncResponse(const nlohmann::json& data) {
       const int64_t delay = static_cast<int64_t>(t4 - t3 + time_t2_ - time_t1_) / 2;
       const int64_t offset = static_cast<int64_t>(time_t2_ - time_t1_ - t4 + t3) / 2;
 
-      nlohmann::json response = {
+      const nlohmann::json response = {
           {func_name, func_type_b},
           {func_type_a, delay},
           {func_type_b, offset},
@@ -73,7 +73,7 @@ void Ptp::HandleTimeSyncResponse(const nlohmann::json& data) {
 void Ptp::SendPtpData() const {
   const uint64_t mark = GetCurrentTimeUs();
 
-  nlohmann::json data = {
+  const nlohmann::json data = {
       {func_name, func_type_a},
       {func_type_a, mark},
   };

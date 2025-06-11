@@ -67,8 +67,8 @@ void Messenger::Sub(const std::string& topic, const std::function<void(const std
           LOG(WARNING) << "Subscription receive failed for topic: " << topic;
           continue;
         }
-        std::string received_topic(static_cast<char*>(topic_msg.data()), topic_msg.size());
-        if (received_topic != topic) {
+        if (std::string received_topic(static_cast<char*>(topic_msg.data()), topic_msg.size());
+            received_topic != topic) {
           continue;
         }
         std::string data(static_cast<char*>(data_msg.data()), data_msg.size());
@@ -93,8 +93,8 @@ void Messenger::SubStruct(const std::string& topic, const std::function<void(con
           LOG(WARNING) << "Subscription to topic [" << topic << "] failed.";
           continue;
         }
-        std::string received_topic(static_cast<char*>(topic_msg.data()), topic_msg.size());
-        if (received_topic != topic) {
+        if (std::string received_topic(static_cast<char*>(topic_msg.data()), topic_msg.size());
+            received_topic != topic) {
           continue;
         }
         callback(data_msg.data(), data_msg.size());
