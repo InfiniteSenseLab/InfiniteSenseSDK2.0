@@ -13,7 +13,7 @@ else ()
     set(PLATFORM_DIR "Unknown")
 endif ()
 message(STATUS "Find MVCAM_LIB_DIR : ${MVCAM_LIB_DIR}")
-
+find_package(Threads REQUIRED)
 # **************************编译普通节点*****************************
 add_executable(${PROJECT_NAME}
         main.cpp
@@ -24,6 +24,7 @@ target_link_directories(${PROJECT_NAME} PRIVATE ${MVCAM_LIB_DIR})
 target_link_libraries(${PROJECT_NAME} PRIVATE
         infinite_sense_core
         MvCameraControl
+        Threads::Threads
 )
 target_include_directories(${PROJECT_NAME} PRIVATE mvcam/include)
 set_target_properties(${PROJECT_NAME} PROPERTIES INSTALL_RPATH "$ORIGIN")
@@ -82,7 +83,7 @@ else ()
             geometry_msgs
     )
     file(GLOB_RECURSE SOURCE_FILES
-            ros_main.cpp
+            main_ros.cpp
             mv_cam.cpp
             mv_cam.h
     )
@@ -91,11 +92,11 @@ else ()
     target_link_libraries(${PROJECT_NAME}_ros
             infinite_sense_core
             MvCameraControl
+            Threads::Threads
             ${catkin_LIBRARIES}
     )
     target_include_directories(${PROJECT_NAME}_ros PRIVATE
-            ${catkin_INCLUDE_DIRS}
+            ${catkin_INCLUDE_DIRS} mvcam/include
     )
     target_compile_definitions(${PROJECT_NAME}_ros PUBLIC -DROS_PLATFORM)
 endif ()
-
