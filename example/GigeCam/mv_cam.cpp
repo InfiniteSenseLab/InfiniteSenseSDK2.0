@@ -192,12 +192,12 @@ void MvCam::Receive(void *handle, const std::string &name) {
       }
       // 这里的time_stamp_us是相机触发时间，需要加上曝光时间的一半，以获得相机拍摄的时间
       if (params.find(name) == params.end()) {
-        LOG(ERROR) << "cam " << name << " not found!";
+        LOG(ERROR) << "cam: " << name << " not found!";
       } else {
         if (uint64_t time; GET_LAST_TRIGGER_STATUS(params[name], time)) {
           cam_data.time_stamp_us = time + static_cast<uint64_t>(expose_time.fCurValue / 2.);
         } else {
-          LOG(ERROR) << "cam " << name << " not found!";
+          LOG(ERROR) << "Trigger cam: " << name << " not found!";
         }
       }
       MvGvspPixelType en_dst_pixel_type = PixelType_Gvsp_Undefined;
@@ -258,6 +258,9 @@ void MvCam::Start() {
       static int cam_index{1};
       name = "cam_" + std::to_string(cam_index++);
       LOG(WARNING) << "Camera name is empty,Create new name: " << name;
+    }
+    else {
+      LOG(INFO) << "Camera name is " << name;
     }
     cam_threads.emplace_back(&MvCam::Receive, this, handle, name);
     LOG(INFO) << "Camera name is " << name << " start.";
