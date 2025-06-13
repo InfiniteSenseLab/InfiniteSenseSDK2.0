@@ -21,8 +21,7 @@ jobs:
       uses: ros-tooling/setup-ros@0.7.14
       
     - name: Configure
-      run: source /opt/ros/$ROS_DISTRO/setup.bash
-           cmake -B build
+      run: cmake -B build
 
     - name: Build
       run: cmake --build build
