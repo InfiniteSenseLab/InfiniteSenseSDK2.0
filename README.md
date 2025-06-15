@@ -47,17 +47,6 @@
 >| 主机(ARM/X86) | Intel/AMD/Jetson/RockChip/... | PTP    |
 
 
-# 开始使用
-## 下载安装
-```bash
-sudo apt-get install libzmq3-dev # 安装ZeroMQ
-git clone git@github.com:InfiniteSenseLab/InfiniteSenseSDK2.0.git -b main
-cd InfiniteSenseSDK2.0
-mkdir build && cd build
-cmake..
-```
-
-
 # 购买与咨询 (Purchasing & Consultation)
 
 [【淘宝】Access denied MF3543 「多相机IMU同步板网口串口同步工业相机六轴姿态」
