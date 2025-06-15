@@ -10,13 +10,13 @@
 
 ---
 
-# 🚀 [SimpleSync 是一个简单易用的多传感器同步方案](https://github.com/InfiniteSenseLab/SimpleSync/wiki)！
+# 🚀 [SimpleSensorSync 是一个简单易用的多传感器同步方案](https://github.com/InfiniteSenseLab/SimpleSensorSync/wiki)！
 
 ✨ 精简依赖 – 降低编译开销，构建更快速。  
 🤖 支持 ROS2 & Python – 轻松集成现代机器人与脚本化工作流。  
 ⏱ 更精准的同步机制 – 提供更高精度的时间协调。  
 📡 数据协议更透明(JSON) – 通信更清晰、更灵活。  
-⚙️ 配置更简单 – 轻松上手，自定义更便捷[快速使用说明与系统说明](https://github.com/InfiniteSenseLab/SimpleSync/wiki)。  
+⚙️ 配置更简单 – 轻松上手，自定义更便捷[快速使用说明与系统说明](https://github.com/InfiniteSenseLab/SimpleSensorSync/wiki)。  
 📜 日志功能增强 – 记录更全面，调试更高效。   
 🌐 多平台灵活部署 – (ZeroMQ)支持嵌入式/桌面/云端多场景部署。  
 🔗 支持多相机 📷、雷达⦿ 、IMU 🧭 与单 GPS 🛰 的混合信号协同管理。  
@@ -25,7 +25,7 @@
 
 # News
 
->1. 完善的[使用说明与系统说明](https://github.com/InfiniteSenseLab/SimpleSync/wiki)发布
+>1. 完善的[使用说明与系统说明](https://github.com/InfiniteSenseLab/SensorSimpleSync/wiki)发布
 >2. 正在更新Demo使用案例与更加准确的同步验证教程
 >3. V3/V4/MINI同步板同步支持。
 
