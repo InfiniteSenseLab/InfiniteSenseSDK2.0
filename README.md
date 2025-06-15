@@ -10,9 +10,7 @@
 
 ---
 
-# 🚀 SDK 全新升级：更强大，更易用！
-
-这次升级为 SDK 带来了更流畅的开发体验和更强大的功能：
+# 🚀 SimpleSync 是一个简单易用的多传感器同步方案！
 
 ✨ 精简依赖 – 降低编译开销，构建更快速。  
 🤖 支持 ROS2 & Python – 轻松集成现代机器人与脚本化工作流。  
@@ -25,11 +23,10 @@
 🔄 [支持多同步板](assets/doc/board_introduction.md) -V3/V4/MINI。  
 🛡️ 安全可靠 – 更加安全的电源与接线🚫。
 
-立即升级，体验更高效、更友好的 SDK！🚀
-
 # News
 
->1. 开发者文档正在编写中，敬请期待！
+>1. [使用说明与系统说明](https://github.com/InfiniteSenseLab/SimpleSync/wiki)
+>2. 正在更新Demo使用案例与更加准确的同步验证教程
 
 <p align="center">
   <img alt="Image 1" src="assets/picture/v4_board.png" width="45%">
@@ -70,6 +67,5 @@ cmake..
 
 [【淘宝】Access denied MF3543 「多相机IMU同步板网口串口同步工业相机六轴姿态」
 点击链接直接打开 或者 淘宝搜索直接打开](https://item.taobao.com/item.htm?ft=t&id=832624497202)
-
 
 [//]: # (![photo]&#40;./assets/img4.png&#41;)
