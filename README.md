@@ -10,7 +10,7 @@
 
 ---
 
-# 🚀 [SimpleSensorSync 一个简单易用的多传感器同步方案](https://github.com/InfiniteSenseLab/SimpleSensorSync/wiki)！
+# 🚀 [一个简单易用的多传感器同步方案](https://github.com/InfiniteSenseLab/SimpleSensorSync/wiki)！
 
 ✨ 精简依赖 – 降低编译开销，构建更快速。  
 🤖 支持 ROS2 & Python – 轻松集成现代机器人与脚本化工作流。  
