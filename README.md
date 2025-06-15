@@ -64,3 +64,12 @@ cmake..
 ## [数据与协议](assets/doc/data_info.md)
 
 # 问题及提问
+
+
+# 购买与咨询 (Purchasing & Consultation)
+
+[【淘宝】Access denied MF3543 「多相机IMU同步板网口串口同步工业相机六轴姿态」
+点击链接直接打开 或者 淘宝搜索直接打开](https://item.taobao.com/item.htm?ft=t&id=832624497202)
+
+
+[//]: # (![photo]&#40;./assets/img4.png&#41;)
