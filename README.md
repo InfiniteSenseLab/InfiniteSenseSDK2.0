@@ -25,9 +25,9 @@
 
 # News
 
->1. 完整的[使用说明与系统说明](https://github.com/InfiniteSenseLab/SensorSimpleSync/wiki)发布。
+>1. 完整的[使用说明与系统说明](https://github.com/InfiniteSenseLab/SimpleSensorSync/wiki)发布。
 >2. 正在更新Demo使用案例与更加准确的同步验证教程。
->3. 正在开发基于Python的Demo。
+>3. 正在开发基于Python的使用Demo。
 >4. V3/V4/MINI同步板同步支持。
 
 <p align="center">
