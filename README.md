@@ -25,9 +25,10 @@
 
 # News
 
->1. 完善的[使用说明与系统说明](https://github.com/InfiniteSenseLab/SensorSimpleSync/wiki)发布
->2. 正在更新Demo使用案例与更加准确的同步验证教程
->3. V3/V4/MINI同步板同步支持。
+>1. 完整的[使用说明与系统说明](https://github.com/InfiniteSenseLab/SensorSimpleSync/wiki)发布。
+>2. 正在更新Demo使用案例与更加准确的同步验证教程。
+>3. 正在开发基于Python的Demo。
+>4. V3/V4/MINI同步板同步支持。
 
 <p align="center">
   <img alt="Image 1" src="assets/picture/v4_board.png" width="45%">
@@ -52,4 +53,3 @@
 [【淘宝】Access denied MF3543 「多相机IMU同步板网口串口同步工业相机六轴姿态」
 点击链接直接打开 或者 淘宝搜索直接打开](https://item.taobao.com/item.htm?ft=t&id=832624497202)
 
-[//]: # (![photo]&#40;./assets/img4.png&#41;)
