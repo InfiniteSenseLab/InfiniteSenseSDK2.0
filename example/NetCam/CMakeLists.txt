@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(gige_cam VERSION 1.0)
+project(net_cam VERSION 1.0)
 message(STATUS "System Processor: ${CMAKE_SYSTEM_PROCESSOR}")
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "arm" OR CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
     set(PLATFORM_DIR "arm")
@@ -15,19 +15,19 @@ endif ()
 message(STATUS "Find MVCAM_LIB_DIR : ${MVCAM_LIB_DIR}")
 find_package(Threads REQUIRED)
 # **************************编译普通节点*****************************
-add_executable(${PROJECT_NAME}
+add_executable(zmq_node
         main.cpp
         mv_cam.cpp
         mv_cam.h
 )
-target_link_directories(${PROJECT_NAME} PRIVATE ${MVCAM_LIB_DIR})
-target_link_libraries(${PROJECT_NAME} PRIVATE
+target_link_directories(zmq_node PRIVATE ${MVCAM_LIB_DIR})
+target_link_libraries(zmq_node PRIVATE
         infinite_sense_core
         MvCameraControl
         Threads::Threads
 )
-target_include_directories(${PROJECT_NAME} PRIVATE mvcam/include)
-set_target_properties(${PROJECT_NAME} PROPERTIES INSTALL_RPATH "$ORIGIN")
+target_include_directories(zmq_node PRIVATE mvcam/include)
+set_target_properties(zmq_node PROPERTIES INSTALL_RPATH "$ORIGIN")
 
 # **************************编译ROS2节点*****************************
 find_package(rclcpp QUIET)
@@ -64,6 +64,9 @@ else ()
             cv_bridge
     )
     install(TARGETS ${PROJECT_NAME}_ros2
+            DESTINATION lib/${PROJECT_NAME}
+    )
+    install(TARGETS infinite_sense_core
             DESTINATION lib/${PROJECT_NAME}
     )
     ament_package()

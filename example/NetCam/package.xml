@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<package format="2">
-  <name>gige_cam</name>
+<package format="3">
+  <name>net_cam</name>
   <version>1.0.0</version>
   <description>The infinite sense camera package</description>
   <maintainer email="www.qq837374741@foxmail.com">infinite sense</maintainer>

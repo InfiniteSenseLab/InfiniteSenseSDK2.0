@@ -258,8 +258,7 @@ void MvCam::Start() {
       static int cam_index{1};
       name = "cam_" + std::to_string(cam_index++);
       LOG(WARNING) << "Camera name is empty,Create new name: " << name;
-    }
-    else {
+    } else {
       LOG(INFO) << "Camera name is " << name;
     }
     cam_threads.emplace_back(&MvCam::Receive, this, handle, name);
