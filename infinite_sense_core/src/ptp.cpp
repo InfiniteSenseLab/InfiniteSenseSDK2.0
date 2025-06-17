@@ -6,15 +6,11 @@
 
 namespace infinite_sense {
 
-namespace {
 constexpr char func_name[] = "f";
 constexpr char func_type_a[] = "a";
 constexpr char func_type_b[] = "b";
-}  // namespace
 
-void Ptp::SetUsbPtr(const std::shared_ptr<serial::Serial>& serial_ptr) {
-  serial_ptr_ = serial_ptr;
-}
+void Ptp::SetUsbPtr(const std::shared_ptr<serial::Serial>& serial_ptr) { serial_ptr_ = serial_ptr; }
 
 void Ptp::SetNetPtr(const std::shared_ptr<UDPSocket>& net_ptr, const std::string& target_ip,
                     const unsigned short port) {
@@ -95,8 +91,7 @@ void Ptp::SendJson(const nlohmann::json& data) const {
 }
 
 uint64_t Ptp::GetCurrentTimeUs() {
-  return std::chrono::duration_cast<std::chrono::microseconds>(
-             std::chrono::system_clock::now().time_since_epoch())
+  return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch())
       .count();
 }
 
