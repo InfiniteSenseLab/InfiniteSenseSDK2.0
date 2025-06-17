@@ -15,19 +15,19 @@ endif ()
 message(STATUS "Find MVCAM_LIB_DIR : ${MVCAM_LIB_DIR}")
 find_package(Threads REQUIRED)
 # **************************编译普通节点*****************************
-add_executable(zmq_node
+add_executable(${PROJECT_NAME}
         main.cpp
         mv_cam.cpp
         mv_cam.h
 )
-target_link_directories(zmq_node PRIVATE ${MVCAM_LIB_DIR})
-target_link_libraries(zmq_node PRIVATE
+target_link_directories(${PROJECT_NAME} PRIVATE ${MVCAM_LIB_DIR})
+target_link_libraries(${PROJECT_NAME} PRIVATE
         infinite_sense_core
         MvCameraControl
         Threads::Threads
 )
-target_include_directories(zmq_node PRIVATE mvcam/include)
-set_target_properties(zmq_node PROPERTIES INSTALL_RPATH "$ORIGIN")
+target_include_directories(${PROJECT_NAME} PRIVATE mvcam/include)
+set_target_properties(${PROJECT_NAME} PROPERTIES INSTALL_RPATH "$ORIGIN")
 
 # **************************编译ROS2节点*****************************
 find_package(rclcpp QUIET)
