@@ -48,7 +48,7 @@
 >| 主机(ARM/X86) | Intel/AMD/Jetson/RockChip/... | PTP    |
 
 
-# 购买与咨询
+# 咨询购买
 
 [【淘宝】Access denied MF3543 「多相机IMU同步板网口串口同步工业相机六轴姿态」
 点击链接直接打开 或者 淘宝搜索直接打开](https://item.taobao.com/item.htm?ft=t&id=832624497202)
