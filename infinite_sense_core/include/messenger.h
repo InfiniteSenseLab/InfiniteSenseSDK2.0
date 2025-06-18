@@ -1,14 +1,8 @@
 #pragma once
-#include <atomic>
 #include <log.h>
-#include <mutex>
 #include <thread>
 #include <zmq.hpp>
-#include <unordered_set>
-#include <unordered_map>
 #include <functional>
-
-#include "config.h"
 
 namespace infinite_sense {
 class Messenger {

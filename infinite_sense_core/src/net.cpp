@@ -86,7 +86,7 @@ void NetManager::TimeStampSynchronization() const {
   while (started_) {
     try {
       ptp_->SendPtpData();
-      std::this_thread::sleep_for(std::chrono::milliseconds(10));  // 限制频率，防止死循环占满 CPU
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
     } catch (const std::exception& e) {
       LOG(ERROR) << "Timestamp sync error: " << e.what();
     }

@@ -31,7 +31,7 @@ UsbManager::UsbManager(std::string port, const int baud_rate) : port_(std::move(
 }
 
 UsbManager::~UsbManager() {
-  Stop();  // 确保资源优雅释放
+  Stop();
 }
 
 void UsbManager::Start() {
