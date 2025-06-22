@@ -216,11 +216,13 @@ void MvCam::Receive(void *handle, const std::string &name) {
         cam_data.name = name;
         if (en_dst_pixel_type == PixelType_Gvsp_Mono8) {
           cam_data.image = GMat(st_out_frame.stFrameInfo.nHeight, st_out_frame.stFrameInfo.nWidth,
-                                GMatType<uint8_t, 1>::Type, st_out_frame.pBufAddr);
+                                GMatType<uint8_t, 1>::Type, st_out_frame.pBufAddr)
+                               .Clone();
         }
         if (en_dst_pixel_type == PixelType_Gvsp_RGB8_Packed) {
           cam_data.image = GMat(st_out_frame.stFrameInfo.nHeight, st_out_frame.stFrameInfo.nWidth,
-                                GMatType<uint8_t, 3>::Type, st_out_frame.pBufAddr);
+                                GMatType<uint8_t, 3>::Type, st_out_frame.pBufAddr)
+                               .Clone();
         }
         messenger.PubStruct(name, &cam_data, sizeof(cam_data));
         if (last_count == 0) {
