@@ -11,7 +11,7 @@
 class CamDriver final : public rclcpp::Node {
  public:
   CamDriver()
-      : Node("gige_driver"), node_handle_(std::shared_ptr<CamDriver>(this, [](auto *) {})), transport_(node_handle_) {
+      : Node("ros2_cam_driver"), node_handle_(std::shared_ptr<CamDriver>(this, [](auto *) {})), transport_(node_handle_) {
     std::string camera_name_1 = "cam_1";
     std::string camera_name_2 = "cam_2";
     const std::string imu_name = "imu_1";
