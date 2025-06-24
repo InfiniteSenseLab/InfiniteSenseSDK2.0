@@ -264,7 +264,7 @@ void MvCam::Start() {
       LOG(INFO) << "Camera name is " << name;
     }
     cam_threads.emplace_back(&MvCam::Receive, this, handle, name);
-    LOG(INFO) << "Camera name is " << name << " start.";
+    LOG(INFO) << "Camera " << name << " start.";
   }
 }
 }  // namespace infinite_sense

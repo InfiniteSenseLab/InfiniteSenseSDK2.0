@@ -3,6 +3,7 @@
 #include <thread>
 #include <zmq.hpp>
 #include <functional>
+#include <mutex>
 
 namespace infinite_sense {
 class Messenger {
@@ -23,6 +24,7 @@ class Messenger {
   Messenger();
   ~Messenger();
   void CleanUp();
+  std::mutex mutex_;
   zmq::context_t context_{};
   zmq::socket_t publisher_{}, subscriber_{};
   std::string endpoint_{};

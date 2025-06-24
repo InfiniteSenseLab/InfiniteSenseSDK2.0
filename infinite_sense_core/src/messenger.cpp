@@ -39,6 +39,7 @@ void Messenger::CleanUp() {
 
 void Messenger::Pub(const std::string& topic, const std::string& metadata) {
   try {
+    std::lock_guard lock(mutex_);
     publisher_.send(zmq::buffer(topic), zmq::send_flags::sndmore);
     publisher_.send(zmq::buffer(metadata), zmq::send_flags::dontwait);
   } catch (const zmq::error_t& e) {
@@ -48,6 +49,7 @@ void Messenger::Pub(const std::string& topic, const std::string& metadata) {
 
 void Messenger::PubStruct(const std::string& topic, const void* data, const size_t size) {
   try {
+    std::lock_guard lock(mutex_);
     publisher_.send(zmq::buffer(topic), zmq::send_flags::sndmore);
     publisher_.send(zmq::buffer(data, size), zmq::send_flags::dontwait);
   } catch (const zmq::error_t& e) {
