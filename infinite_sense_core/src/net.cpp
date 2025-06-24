@@ -10,7 +10,7 @@ NetManager::NetManager(std::string target_ip, unsigned short port) : port_(port)
   const uint64_t curr_time = static_cast<uint64_t>(
       std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch())
           .count());
-  net_ptr_->sendTo(reinterpret_cast<const uint8_t*>(&curr_time), sizeof(curr_time), target_ip_, port_);
+  net_ptr_->sendTo(&curr_time, sizeof(curr_time), target_ip_, port_);
   ptp_ = std::make_unique<Ptp>();
   ptp_->SetNetPtr(net_ptr_, target_ip_, port_);
 }
