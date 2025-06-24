@@ -5,7 +5,8 @@
 
 namespace infinite_sense {
 
-NetManager::NetManager(std::string target_ip, unsigned short port) : port_(port), target_ip_(std::move(target_ip)) {
+NetManager::NetManager(std::string target_ip, const unsigned short port)
+    : port_(port), target_ip_(std::move(target_ip)) {
   net_ptr_ = std::make_shared<UDPSocket>();
   const uint64_t curr_time = static_cast<uint64_t>(
       std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch())

@@ -5,7 +5,7 @@
 
 namespace infinite_sense {
 
-UsbManager::UsbManager(std::string port, const int baud_rate) : port_(std::move(port)), started_(false) {
+UsbManager::UsbManager(std::string port, const int baud_rate) : port_(std::move(port)) {
   serial_ptr_ = std::make_unique<serial::Serial>();
   try {
     serial_ptr_->setPort(port_);

@@ -11,7 +11,6 @@ Messenger::Messenger() {
     subscriber_ = zmq::socket_t(context_, zmq::socket_type::sub);
     publisher_.bind(endpoint_);
     subscriber_.connect(endpoint_);
-
     LOG(INFO) << "Link Net: " << endpoint_;
   } catch (const zmq::error_t& e) {
     LOG(ERROR) << "Net initialization error: " << e.what();

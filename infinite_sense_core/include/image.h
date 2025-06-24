@@ -72,33 +72,6 @@ struct GMatType {
   enum { Type = ((GElement<EleType>::Type & 0x7) + ((channelSize - 1) << 3)) };
 };
 
-struct UMatData  // for OpenCV Version 3
-{
-  enum {
-    COPY_ON_MAP = 1,
-    HOST_COPY_OBSOLETE = 2,
-    DEVICE_COPY_OBSOLETE = 4,
-    TEMP_UMAT = 8,
-    TEMP_COPIED_UMAT = 24,
-    USER_ALLOCATED = 32,
-    DEVICE_MEM_MAPPED = 64
-  };
-  const void* prev_allocator;
-  const void* curr_allocator;
-  int ref_count;
-  int refcount;
-  uchar* data;
-  uchar* orig_data;
-  size_t size;
-
-  int flags;
-  void* handle;
-  void* userdata;
-  int allocator_flags;
-  int map_count;
-  UMatData* original_u_mat_data;
-};
-
 class GMat {
  public:
   GMat();
@@ -150,7 +123,6 @@ class GMat {
   static void* FastMalloc(size_t size, int image_align = 16);
   static void FastFree(void* ptr);
   static size_t AlignSize(size_t sz, int n);
-  static void Deallocate(UMatData* u);
 
  public:
   int cols, rows, flags;

@@ -81,22 +81,6 @@ void GMat::Release() {
     FastFree(data);
     ref_count = nullptr;
     data = nullptr;
-  } else  // OpenCV3 style
-  {
-    if (auto* u = reinterpret_cast<UMatData*>(reinterpret_cast<uchar*>(ref_count) - offsetof(UMatData, refcount));
-        u->userdata == data + align_bytes) {
-      // this is allocated by GMat, we need minus both refcount
-      ref_count = static_cast<int*>(u->userdata);
-      if (CvXAdd(ref_count, -1) == 1) {
-        return Release();
-      }
-    } else {
-      assert(u->size == total_bytes);
-      Deallocate(u);
-    }
-    cols = rows = 0;
-    ref_count = nullptr;
-    data = nullptr;
   }
 }
 
@@ -133,23 +117,5 @@ void GMat::FastFree(void* ptr) {
 size_t GMat::AlignSize(const size_t sz, const int n) {
   assert((n & (n - 1)) == 0);  // n is a power of 2
   return (sz + n - 1) & -n;
-}
-
-void GMat::Deallocate(UMatData* u)  // for OpenCV Version 3
-{
-  if (!u) {
-    return;
-  }
-  assert(u->ref_count == 0);
-  assert(u->refcount == 0);
-  if (!(u->flags & UMatData::USER_ALLOCATED)) {
-    const uchar* udata = reinterpret_cast<uchar**>(u->orig_data)[-1];
-    if (const int n = u->orig_data - udata; (n & (n - 1)) == 0 && n >= 0 && n <= 32) {
-      FastFree(u->orig_data);
-    } else
-      free(u->orig_data);
-    u->orig_data = nullptr;
-  }
-  delete u;
 }
 }  // namespace infinite_sense
