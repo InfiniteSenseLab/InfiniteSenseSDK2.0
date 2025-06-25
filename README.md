@@ -43,7 +43,7 @@
 >| 工业相机(网口)    | 海康/大华/大恒/京航/...               | PWM    |
 >| 工业相机(USB)   | 海康/大华/大恒/京航/...               | PWM    |
 >| 第三方IMU      | Xsense全系列/...                 | PWM    |
->| 3D激光        | Mid360/Mid70/RoboSense系列/...  | PPS   |
+>| 3D激光        | Mid360/Mid70/RoboSense/Tele-15/Horizon系列/...  | PPS   |
 >| RTK/GPS     | 所有支持NMEA0183设备                | NMEA   |
 >| 主机(ARM/X86) | Intel/AMD/Jetson/RockChip/... | PTP    |
 
