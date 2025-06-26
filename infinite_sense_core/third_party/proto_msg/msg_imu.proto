@@ -1,0 +1,21 @@
+syntax = "proto3";
+package protocol;
+import "msg_header.proto";
+
+message Quaternion {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+  double w = 4;
+}
+message Imu {
+  Header header = 1;
+  repeated double angular_velocity = 2;
+  repeated double linear_acceleration = 3;
+  Quaternion orientation = 4;
+}
+
+message ImuArray {
+  repeated Imu imu_data = 1;
+}
+

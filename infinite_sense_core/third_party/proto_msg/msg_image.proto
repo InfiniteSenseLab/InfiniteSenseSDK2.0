@@ -1,0 +1,25 @@
+syntax = "proto3";
+package protocol;
+import "msg_header.proto";
+
+
+message Mat {
+  int32 rows = 1;
+  int32 cols = 2;
+  int32 channels = 3;
+  int32 elt_type = 4;
+  int32 elt_size = 5;
+  bytes data = 6;
+}
+
+message Image {
+  Header header = 1;
+  string name = 2;
+  Mat mat = 3;
+}
+
+message Images {
+  repeated Image images = 1;
+}
+
+
