@@ -1,0 +1,15 @@
+[project]
+name = "data_analysis"
+version = "0.1.0"
+description = "infinite sense board data analysis tools"
+readme = "README.md"
+requires-python = "==3.11.*"
+dependencies = [
+    "opencv-python==4.10.0.84",
+    "numpy>=1.26.4,<2",
+    "pyzmq>=27.0.0",
+]
+
+[tool.uv.pip]
+index-url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+

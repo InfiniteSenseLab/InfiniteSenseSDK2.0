@@ -12,3 +12,15 @@ cmake-build-*/
 .vscode/
 build/
 log/
+
+
+#python
+.env
+.venv
+env/
+venv/
+env.bak/
+venv.bak/
+uv.lock
+
+
