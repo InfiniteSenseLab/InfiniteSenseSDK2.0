@@ -14,8 +14,3 @@ message Imu {
   repeated double linear_acceleration = 3;
   Quaternion orientation = 4;
 }
-
-message ImuArray {
-  repeated Imu imu_data = 1;
-}
-

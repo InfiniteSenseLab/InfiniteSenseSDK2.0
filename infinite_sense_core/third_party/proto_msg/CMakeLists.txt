@@ -76,5 +76,5 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
     ${Protobuf_LIBRARY_RELEASE}
 )
-message(STATUS "create proto_msg OBJECT")
+message(STATUS "create proto_msg")
 
