@@ -18,6 +18,8 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -O3")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 endif ()
+# sudo apt-get install protobuf-compiler libprotobuf-dev
+add_subdirectory(third_party/proto_msg)
 add_subdirectory(third_party/serial)
 add_subdirectory(third_party/udp)
 add_library(${PROJECT_NAME} SHARED
