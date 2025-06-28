@@ -1,7 +1,6 @@
 syntax = "proto3";
 package protocol;
-import "msg_header.proto";
-
+import "header.proto";
 message Quaternion {
   double x = 1;
   double y = 2;

@@ -41,6 +41,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     ${ZeroMQ_LIBRARIES}
     serial
     udp
+    proto_msg
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

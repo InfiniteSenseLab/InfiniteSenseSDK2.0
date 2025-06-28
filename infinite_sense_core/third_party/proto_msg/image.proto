@@ -1,6 +1,6 @@
 syntax = "proto3";
 package protocol;
-import "msg_header.proto";
+import "header.proto";
 
 
 message Mat {
@@ -14,12 +14,7 @@ message Mat {
 
 message Image {
   Header header = 1;
-  string name = 2;
   Mat mat = 3;
-}
-
-message Images {
-  repeated Image images = 1;
 }
 
 

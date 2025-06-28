@@ -4,6 +4,7 @@
 #include <zmq.hpp>
 #include <functional>
 #include <mutex>
+#include <google/protobuf/message.h>
 
 namespace infinite_sense {
 class Messenger {
@@ -15,12 +16,10 @@ class Messenger {
   Messenger(const Messenger&) = delete;
   Messenger(const Messenger&&) = delete;
   Messenger& operator=(const Messenger&) = delete;
-  void Pub(const std::string& topic, const std::string& metadata);
-  void PubStruct(const std::string& topic, const void* data, size_t size);
-  void Sub(const std::string& topic, const std::function<void(const std::string&)>& callback);
-  void SubStruct(const std::string& topic, const std::function<void(const void*, size_t)>& callback);
-
+  bool PubProto(const std::string&,const std::shared_ptr<google::protobuf::Message>&);
  private:
+  void PubStr(const std::string& topic, const std::string& metadata);
+  void SubStr(const std::string& topic, const std::function<void(const std::string&)>& callback);
   Messenger();
   ~Messenger();
   void CleanUp();

@@ -1,6 +1,9 @@
 #include "mv_cam.h"
 #include "infinite_sense.h"
 #include "MvCameraControl.h"
+#include "image.pb.h"
+
+#include <google/protobuf/any.pb.h>
 namespace infinite_sense {
 bool IsColor(const MvGvspPixelType type) {
   switch (type) {
@@ -98,20 +101,15 @@ bool MvCam::Initialization() {
     handles_.emplace_back(nullptr);
     rets_.push_back(MV_OK);
   }
-  // 一共找到多少个设备,分别对所有的设备进行初始化
   for (unsigned int i = 0; i < st_device_list.nDeviceNum; ++i) {
-    // 检测到有多少个相机要全部进行初始化。
-    // 选择设备并创建句柄
     rets_[i] = MV_CC_CreateHandleWithoutLog(&handles_[i], st_device_list.pDeviceInfo[i]);
     if (MV_OK != rets_[i]) {
       LOG(ERROR) << "MV_CC_CreateHandle fail! n_ret [" << rets_[i] << "]";
     }
-    // open device
     rets_[i] = MV_CC_OpenDevice(handles_[i]);
     if (MV_OK != rets_[i]) {
       LOG(ERROR) << "MV_CC_OpenDevice fail! n_ret [" << rets_[i] << "]";
     }
-    // ch:探测网络最佳包大小(只对GigE相机有效) | en:Detection network optimal
     if (st_device_list.pDeviceInfo[i]->nTLayerType == MV_GIGE_DEVICE) {
       int n_packet_size = MV_CC_GetOptimalPacketSize(handles_[i]);
       if (n_packet_size > 0) {
@@ -123,17 +121,10 @@ bool MvCam::Initialization() {
         LOG(WARNING) << "Get Packet Size fail n_ret [0x" << std::hex << n_packet_size << "]";
       }
     }
-    // 设置触发模式为off
-    // rets_[i] = MV_CC_SetEnumValue(handles_[i], "TriggerMode", 1);
-    // if (MV_OK != rets_[i]) {
-    //   printf("MV_CC_SetTriggerMode fail! n_ret [%x]\n", rets_[i]);
-    // }
-    // 设置SDK内部图像缓存节点个数，大于等于1，在抓图前调用 1-30个缓存
     rets_[i] = MV_CC_SetImageNodeNum(handles_[i], 100);
     if (MV_OK != rets_[i]) {
       LOG(ERROR) << "MV_CC_SetImageNodeNum fail! n_ret [" << rets_[i] << "]";
     }
-    // start grab image
     rets_[i] = MV_CC_StartGrabbing(handles_[i]);
     if (MV_OK != rets_[i]) {
       LOG(ERROR) << "MV_CC_StartGrabbing fail! n_ret [" << rets_[i] << "]";
@@ -177,9 +168,11 @@ void MvCam::Stop() {
   }
 }
 void MvCam::Receive(void *handle, const std::string &name) {
+  uint8_t channels = 0;
   unsigned int last_count = 0;
   MV_FRAME_OUT st_out_frame;
-  CamData cam_data;
+  const auto image = std::make_shared<protocol::Image>();
+  const auto header = image->mutable_header();
   Messenger &messenger = Messenger::GetInstance();
   while (is_running) {
     memset(&st_out_frame, 0, sizeof(MV_FRAME_OUT));
@@ -195,36 +188,30 @@ void MvCam::Receive(void *handle, const std::string &name) {
         LOG(ERROR) << "cam: " << name << " not found!";
       } else {
         if (uint64_t time; GET_LAST_TRIGGER_STATUS(params[name], time)) {
-          cam_data.time_stamp_us = time + static_cast<uint64_t>(expose_time.fCurValue / 2.);
+          header->set_stamp(time + static_cast<uint64_t>(expose_time.fCurValue / 2.));
+          header->set_name(name);
         } else {
           LOG(ERROR) << "Trigger cam: " << name << " not found!";
         }
       }
-      MvGvspPixelType en_dst_pixel_type = PixelType_Gvsp_Undefined;
-      unsigned int n_channel_num = 0;
-      // 如果是彩色则转成RGB8
       if (IsColor(st_out_frame.stFrameInfo.enPixelType)) {
-        n_channel_num = 3;
-        en_dst_pixel_type = PixelType_Gvsp_RGB8_Packed;
+        channels = 3;
+      } else if (IsMono(st_out_frame.stFrameInfo.enPixelType)) {
+        channels = 1;
       }
-      // 如果是黑白则转换成Mono8
-      else if (IsMono(st_out_frame.stFrameInfo.enPixelType)) {
-        n_channel_num = 1;
-        en_dst_pixel_type = PixelType_Gvsp_Mono8;
-      }
-      if (n_channel_num != 0) {
-        cam_data.name = name;
-        if (en_dst_pixel_type == PixelType_Gvsp_Mono8) {
-          cam_data.image = GMat(st_out_frame.stFrameInfo.nHeight, st_out_frame.stFrameInfo.nWidth,
-                                GMatType<uint8_t, 1>::Type, st_out_frame.pBufAddr)
-                               .Clone();
-        }
-        if (en_dst_pixel_type == PixelType_Gvsp_RGB8_Packed) {
-          cam_data.image = GMat(st_out_frame.stFrameInfo.nHeight, st_out_frame.stFrameInfo.nWidth,
-                                GMatType<uint8_t, 3>::Type, st_out_frame.pBufAddr)
-                               .Clone();
-        }
-        messenger.PubStruct(name, &cam_data, sizeof(cam_data));
+      if (channels > 0) {
+        const int32_t width = st_out_frame.stFrameInfo.nWidth;
+        const int32_t height = st_out_frame.stFrameInfo.nHeight;
+        const uint8_t *src_data = st_out_frame.pBufAddr;
+        const size_t data_size = width * height * channels;
+        const auto mat = image->mutable_mat();
+        mat->set_rows(height);
+        mat->set_cols(width);
+        mat->set_channels(channels);
+        mat->set_elt_type(0);  // 自定义规则：0 代表 uint8
+        mat->set_elt_size(1);  // uint8 -> 1 字节
+        mat->set_data(src_data, data_size);
+        messenger.PubProto(name, image);
         if (last_count == 0) {
           last_count = st_out_frame.stFrameInfo.nFrameNum;
         } else {
