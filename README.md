@@ -19,7 +19,7 @@
 ⚙️ 配置更简单 – 轻松上手，自定义更便捷[快速使用说明与系统说明](https://github.com/InfiniteSenseLab/SimpleSensorSync/wiki)。  
 📜 日志功能增强 – 记录更全面，调试更高效。   
 🌐 多平台灵活部署 – (ZeroMQ)支持嵌入式/桌面/云端多场景部署。  
-🔗 支持多相机 📷、雷达⦿ 、IMU 🧭 与单 GPS 🛰 的混合信号协同管理。  
+🔗 支持多相机 📷、多雷达⦿ 、IMU 🧭 与 GPS 🛰 的混合信号协同管理。  
 🔄 [支持多同步板](assets/doc/board_introduction.md) -V3/V4/MINI。  
 🛡️ 安全可靠 – 更加安全的电源与接线🚫。
 
@@ -27,8 +27,6 @@
 
 >1. 完整的[使用说明与系统说明](https://github.com/InfiniteSenseLab/SimpleSensorSync/wiki)发布。
 >2. 正在更新Demo使用案例与更加准确的同步验证教程。
->3. 正在开发基于Python的使用Demo。
->4. V3/V4/MINI同步板同步支持。
 
 <p align="center">
   <img alt="Image 1" src="assets/picture/v4_board.png" width="45%">
@@ -42,7 +40,7 @@
 >|-------------|-------------------------------|--------|
 >| 工业相机(网口)    | 海康/大华/大恒/京航/...               | PWM    |
 >| 工业相机(USB)   | 海康/大华/大恒/京航/...               | PWM    |
->| 第三方IMU      | Xsense全系列/...                 | PWM    |
+>| 第三方IMU      | Xsense系列/...                 | PWM    |
 >| 3D激光        | Mid360/Mid70/RoboSense/Tele-15/Horizon系列/...  | PPS   |
 >| RTK/GPS     | 所有支持NMEA0183设备                | NMEA   |
 >| 主机(ARM/X86) | Intel/AMD/Jetson/RockChip/... | PTP    |
