@@ -5,15 +5,12 @@ message(STATUS "System Processor: ${CMAKE_SYSTEM_PROCESSOR}")
 
 find_package(Threads REQUIRED)
 find_package(OpenCV QUIET)
-if(NOT OpenCV_FOUND)
-  message(FATAL_ERROR "OpenCV not found! Please install OpenCV and make sure it's visible to CMake.")
-endif()
 
+if(OpenCV_FOUND)
 message(STATUS "Found OpenCV version: ${OpenCV_VERSION}")
 message(STATUS "OpenCV include dirs: ${OpenCV_INCLUDE_DIRS}")
 message(STATUS "OpenCV libraries: ${OpenCV_LIBS}")
 
-if(OpenCV_FOUND)
 # **************************编译普通节点*****************************
 add_executable(${PROJECT_NAME}
         main.cpp
