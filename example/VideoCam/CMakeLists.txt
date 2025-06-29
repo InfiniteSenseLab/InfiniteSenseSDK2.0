@@ -4,7 +4,7 @@ project(video_cam VERSION 1.0)
 message(STATUS "System Processor: ${CMAKE_SYSTEM_PROCESSOR}")
 
 find_package(Threads REQUIRED)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV QUIET)
 if(NOT OpenCV_FOUND)
   message(FATAL_ERROR "OpenCV not found! Please install OpenCV and make sure it's visible to CMake.")
 endif()
